@@ -33,8 +33,12 @@ final public class APIClient: APIClientProtocol, Sendable {
 
         let (data, response) = try await session.data(for: request)
 
-        guard response is HTTPURLResponse else {
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw URLError(.badServerResponse)
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.init(rawValue: httpResponse.statusCode))
         }
 
         return data
