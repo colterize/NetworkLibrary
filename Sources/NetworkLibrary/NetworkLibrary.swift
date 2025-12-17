@@ -11,7 +11,7 @@ protocol APIClientProtocol {
 
 @available(macOS 10.15.0, *)
 @available(iOS 13.0.0, *)
-final public class APIClient: APIClientProtocol {
+final public class APIClient: APIClientProtocol, Sendable {
     @MainActor public static let shared = APIClient()
     private let session: URLSession
 
