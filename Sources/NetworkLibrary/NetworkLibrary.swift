@@ -12,10 +12,10 @@ protocol APIClientProtocol {
 
 @available(macOS 10.15.0, *)
 @available(iOS 13.0.0, *)
-final class APIClient: APIClientProtocol {
-    @MainActor static let shared = APIClient()
+final public class APIClient: APIClientProtocol {
+    @MainActor public static let shared = APIClient()
 
-    func sendRequest<T>(endpoint: Endpoint) async throws -> T where T : Decodable {
+    public func sendRequest<T>(endpoint: Endpoint) async throws -> T where T : Decodable {
         var request = URLRequest(url: endpoint.url, timeoutInterval: Double.infinity)
         request.httpMethod = endpoint.method.rawValue
 
@@ -54,7 +54,7 @@ final class APIClient: APIClientProtocol {
         }
     }
 
-    func sendDynamicRequest(endpoint: Endpoint) async throws -> Any {
+    public func sendDynamicRequest(endpoint: Endpoint) async throws -> Any {
         var request = URLRequest(url: endpoint.url, timeoutInterval: Double.infinity)
         request.httpMethod = endpoint.method.rawValue
 
