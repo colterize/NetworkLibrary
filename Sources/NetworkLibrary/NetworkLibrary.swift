@@ -14,6 +14,11 @@ protocol APIClientProtocol {
 @available(iOS 13.0.0, *)
 final public class APIClient: APIClientProtocol {
     @MainActor public static let shared = APIClient()
+    private let session: URLSession
+
+    public init() {
+        self.session = URLSession.shared
+    }
 
     public func sendRequest<T>(endpoint: Endpoint) async throws -> T where T : Decodable {
         var request = URLRequest(url: endpoint.url, timeoutInterval: Double.infinity)
@@ -31,7 +36,7 @@ final public class APIClient: APIClientProtocol {
             request.httpBody = setHttpBody(endpoint.encoding, with: body)
         }
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
 
         guard response is HTTPURLResponse else {
             throw URLError(.badServerResponse)
@@ -70,7 +75,7 @@ final public class APIClient: APIClientProtocol {
             request.httpBody = setHttpBody(endpoint.encoding, with: body)
         }
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await session.data(for: request)
 
         guard response is HTTPURLResponse else {
             throw URLError(.badServerResponse)
