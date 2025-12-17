@@ -30,3 +30,7 @@ public enum BodyEncoding {
     case json
     case formURLEncoded
 }
+
+public extension Endpoint {
+
+}
