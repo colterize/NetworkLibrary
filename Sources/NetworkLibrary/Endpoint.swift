@@ -8,13 +8,13 @@
 import Foundation
 
 public struct Endpoint {
-    let path: String
-    let method: HTTPMethod
-    let headers: [String: String]?
-    let body: [String: Any]?
-    let encoding: BodyEncoding
+    public let path: String
+    public let method: HTTPMethod
+    public let headers: [String: String]?
+    public let body: [String: Any]?
+    public let encoding: BodyEncoding
 
-    var url: URL {
+    public var url: URL {
         return URL(string: path)!
     }
 }
